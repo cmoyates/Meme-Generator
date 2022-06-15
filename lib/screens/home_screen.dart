@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:meme_generator/services/api_service.dart';
+import 'package:meme_generator/widgets/large_text_field.dart';
+import 'package:meme_generator/widgets/padded_button.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -14,7 +16,7 @@ class _HomeScreenState extends State<HomeScreen> {
   static String bt = "Bottom Text";
   static bool df = false;
 
-  Future<void> SetRandomText(context) async {
+  Future<void> setRandomText(context) async {
     String data = await DefaultAssetBundle.of(context)
         .loadString("assets/meme_text.json");
     final jsonResult = json.decode(data);
@@ -83,144 +85,24 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
-                        Flexible(
-                          flex: 1,
-                          fit: FlexFit.loose,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Text(
-                                "Image URL",
-                                style: TextStyle(
-                                  fontSize: 60,
-                                  fontWeight: FontWeight.w700,
-                                ),
-                              ),
-                              SizedBox(height: 10),
-                              Container(
-                                width: MediaQuery.of(context).size.width / 4,
-                                color: Colors.white,
-                                child: TextField(
-                                  onChanged: (value) {
-                                    url = value;
-                                  },
-                                  onEditingComplete: () {
-                                    setState(() {});
-                                    FocusScope.of(context).unfocus();
-                                    TextEditingController(text: "").clear();
-                                  },
-                                  decoration: InputDecoration(
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                          color: Colors.greenAccent,
-                                          width: 2.0),
-                                    ),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                          color: Colors.blue, width: 2.0),
-                                    ),
-                                    hintText: 'Enter the URL of an image here:',
-                                  ),
-                                  style: TextStyle(
-                                    fontSize: 20.0,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Flexible(
-                          flex: 1,
-                          fit: FlexFit.loose,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Text(
-                                "Top Text",
-                                style: TextStyle(
-                                  fontSize: 60,
-                                  fontWeight: FontWeight.w700,
-                                ),
-                              ),
-                              SizedBox(height: 10),
-                              Container(
-                                width: MediaQuery.of(context).size.width / 4,
-                                child: TextField(
-                                  onChanged: (value) {
-                                    tt = value;
-                                  },
-                                  onEditingComplete: () {
-                                    setState(() {});
-                                    FocusScope.of(context).unfocus();
-                                    TextEditingController(text: "").clear();
-                                  },
-                                  decoration: InputDecoration(
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                          color: Colors.greenAccent,
-                                          width: 2.0),
-                                    ),
-                                    fillColor: Colors.white,
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                          color: Colors.blue, width: 2.0),
-                                    ),
-                                    hintText: 'Enter the top text here:',
-                                  ),
-                                  style: TextStyle(
-                                    fontSize: 20.0,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Flexible(
-                          flex: 1,
-                          fit: FlexFit.loose,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Text(
-                                "Bottom Text",
-                                style: TextStyle(
-                                  fontSize: 60,
-                                  fontWeight: FontWeight.w700,
-                                ),
-                              ),
-                              SizedBox(height: 10),
-                              Container(
-                                width: MediaQuery.of(context).size.width / 4,
-                                color: Colors.white,
-                                child: TextField(
-                                  onChanged: (value) {
-                                    bt = value;
-                                  },
-                                  onEditingComplete: () {
-                                    setState(() {});
-                                    FocusScope.of(context).unfocus();
-                                    TextEditingController(text: "").clear();
-                                  },
-                                  decoration: InputDecoration(
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                          color: Colors.greenAccent,
-                                          width: 2.0),
-                                    ),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                          color: Colors.blue, width: 2.0),
-                                    ),
-                                    hintText: 'Enter the bottom text here:',
-                                  ),
-                                  style: TextStyle(
-                                    fontSize: 20.0,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
+                        LargeTextField(
+                            onChanged: (value) {
+                              url = value;
+                            },
+                            label: "Image URL",
+                            hint: "Enter the URL of an image here:"),
+                        LargeTextField(
+                            onChanged: (value) {
+                              tt = value;
+                            },
+                            label: "Top Text",
+                            hint: "Enter the top text here:"),
+                        LargeTextField(
+                            onChanged: (value) {
+                              bt = value;
+                            },
+                            label: "Bottom Text",
+                            hint: "Enter the bottom text here:"),
                         Flexible(
                           flex: 1,
                           fit: FlexFit.loose,
@@ -247,41 +129,17 @@ class _HomeScreenState extends State<HomeScreen> {
                                     )
                                   ],
                                 ),
-                                Center(
-                                  child: RaisedButton(
-                                    onPressed: () {
-                                      setState(() {});
-                                    },
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 8, vertical: 4),
-                                      child: Text(
-                                        "Refresh",
-                                        style: TextStyle(
-                                          fontSize: 20.0,
-                                          fontWeight: FontWeight.w600,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
+                                PaddedButton(
+                                  onPressed: () {
+                                    setState(() {});
+                                  },
+                                  text: "Refresh",
                                 ),
-                                Center(
-                                  child: RaisedButton(
-                                    onPressed: () {
-                                      SetRandomText(context);
-                                    },
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 8, vertical: 4),
-                                      child: Text(
-                                        "Generate New",
-                                        style: TextStyle(
-                                          fontSize: 20.0,
-                                          fontWeight: FontWeight.w600,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
+                                PaddedButton(
+                                  onPressed: () {
+                                    setRandomText(context);
+                                  },
+                                  text: "Generate New",
                                 ),
                               ]),
                         )
