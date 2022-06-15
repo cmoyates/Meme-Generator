@@ -14,9 +14,9 @@ class _HomeScreenState extends State<HomeScreen> {
   static String bt = "Bottom Text";
   static bool df = false;
 
-  Future<void> SetRandomText(context) async 
-  {
-    String data = await DefaultAssetBundle.of(context).loadString("assets/meme_text.json");
+  Future<void> SetRandomText(context) async {
+    String data = await DefaultAssetBundle.of(context)
+        .loadString("assets/meme_text.json");
     final jsonResult = json.decode(data);
     setState(() {
       tt = jsonResult[Random().nextInt(57681)]["Upper Text"];
@@ -35,7 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
             fontSize: 20.0,
             fontWeight: FontWeight.w600,
           ),
-          ),
+        ),
         backgroundColor: Colors.blue,
       ),
       backgroundColor: Colors.white,
@@ -108,7 +108,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     setState(() {});
                                     FocusScope.of(context).unfocus();
                                     TextEditingController(text: "").clear();
-                                    },
+                                  },
                                   decoration: InputDecoration(
                                     focusedBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
@@ -153,7 +153,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     setState(() {});
                                     FocusScope.of(context).unfocus();
                                     TextEditingController(text: "").clear();
-                                    },
+                                  },
                                   decoration: InputDecoration(
                                     focusedBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
@@ -200,7 +200,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     setState(() {});
                                     FocusScope.of(context).unfocus();
                                     TextEditingController(text: "").clear();
-                                    },
+                                  },
                                   decoration: InputDecoration(
                                     focusedBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
@@ -236,7 +236,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         fontSize: 20.0,
                                         fontWeight: FontWeight.w600,
                                       ),
-                                      ),
+                                    ),
                                     Switch(
                                       value: df,
                                       onChanged: (value) {
@@ -252,13 +252,17 @@ class _HomeScreenState extends State<HomeScreen> {
                                     onPressed: () {
                                       setState(() {});
                                     },
-                                    child: Text(
-                                      "Refresh",
-                                      style: TextStyle(
-                                        fontSize: 20.0,
-                                        fontWeight: FontWeight.w600,
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 8, vertical: 4),
+                                      child: Text(
+                                        "Refresh",
+                                        style: TextStyle(
+                                          fontSize: 20.0,
+                                          fontWeight: FontWeight.w600,
+                                        ),
                                       ),
-                                      ),
+                                    ),
                                   ),
                                 ),
                                 Center(
@@ -266,13 +270,17 @@ class _HomeScreenState extends State<HomeScreen> {
                                     onPressed: () {
                                       SetRandomText(context);
                                     },
-                                    child: Text(
-                                      "Generate New",
-                                      style: TextStyle(
-                                        fontSize: 20.0,
-                                        fontWeight: FontWeight.w600,
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 8, vertical: 4),
+                                      child: Text(
+                                        "Generate New",
+                                        style: TextStyle(
+                                          fontSize: 20.0,
+                                          fontWeight: FontWeight.w600,
+                                        ),
                                       ),
-                                      ),
+                                    ),
                                   ),
                                 ),
                               ]),
